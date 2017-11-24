@@ -304,7 +304,7 @@ def main_unsupervised():
         train_op, global_step = training(loss, learning_rates[i], i)
 
         summary_dir = pjoin(FLAGS.summary_dir, 'pretraining_{0}'.format(n))
-        summary_writer = tf.train.SummaryWriter(summary_dir,
+        summary_writer = tf.summary.FileWriter(summary_dir,
                                                 graph_def=sess.graph_def,
                                                 flush_secs=FLAGS.flush_secs)
         summary_vars = [ae["biases{0}".format(n)], ae["weights{0}".format(n)]]
@@ -395,7 +395,7 @@ def main_supervised(ae):
                       for v in hist_summaries]
     summary_op = tf.merge_summary(hist_summaries)
 
-    summary_writer = tf.train.SummaryWriter(pjoin(FLAGS.summary_dir,
+    summary_writer = tf.summary.FileWriter(pjoin(FLAGS.summary_dir,
                                                   'fine_tuning'),
                                             graph_def=sess.graph_def,
                                             flush_secs=FLAGS.flush_secs)
