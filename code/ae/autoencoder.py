@@ -86,7 +86,7 @@ class AutoEncoder(object):
         # Train weights
         name_w = self._weights_str.format(i + 1)
         w_shape = (self.__shape[i], self.__shape[i + 1])
-        a = tf.mul(4.0, tf.sqrt(6.0 / (w_shape[0] + w_shape[1])))
+        a = tf.multiply(4.0, tf.sqrt(6.0 / (w_shape[0] + w_shape[1])))
         w_init = tf.random_uniform(w_shape, -1 * a, a)
         self[name_w] = tf.Variable(w_init,
                                    name=name_w,
@@ -257,9 +257,9 @@ def loss_x_entropy(output, target):
   with tf.name_scope("xentropy_loss"):
       net_output_tf = tf.convert_to_tensor(output, name='input')
       target_tf = tf.convert_to_tensor(target, name='target')
-      cross_entropy = tf.add(tf.mul(tf.log(net_output_tf, name='log_output'),
+      cross_entropy = tf.add(tf.multiply(tf.log(net_output_tf, name='log_output'),
                                     target_tf),
-                             tf.mul(tf.log(1 - net_output_tf),
+                             tf.multiply(tf.log(1 - net_output_tf),
                                     (1 - target_tf)))
       return -1 * tf.reduce_mean(tf.reduce_sum(cross_entropy, 1),
                                  name='xentropy_mean')
