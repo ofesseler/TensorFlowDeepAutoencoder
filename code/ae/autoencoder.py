@@ -316,7 +316,7 @@ def main_unsupervised():
 
         vars_to_init = ae.get_variables_to_init(n)
         vars_to_init.append(global_step)
-        sess.run(tf.initialize_variables(vars_to_init))
+        sess.run(tf.variables_initializer(vars_to_init))
 
         print("\n\n")
         print("| Training Step | Cross Entropy |  Layer  |   Epoch  |")
