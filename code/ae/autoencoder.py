@@ -232,7 +232,7 @@ def training(loss, learning_rate, loss_key=None):
   else:
     tf.summary.scalar(loss.op.name, loss)
     for var in tf.trainable_variables():
-      tf.histogram_summary(var.op.name, var)
+      tf.summary.histogram(var.op.name, var)
   # Create the gradient descent optimizer with the given learning rate.
   optimizer = tf.train.GradientDescentOptimizer(learning_rate)
   # Create a variable to track the global step.
@@ -309,7 +309,7 @@ def main_unsupervised():
                                                 flush_secs=FLAGS.flush_secs)
         summary_vars = [ae["biases{0}".format(n)], ae["weights{0}".format(n)]]
 
-        hist_summarries = [tf.histogram_summary(v.op.name, v)
+        hist_summarries = [tf.summary.histogram(v.op.name, v)
                            for v in summary_vars]
         hist_summarries.append(loss_summaries[i])
         summary_op = tf.merge_summary(hist_summarries)
@@ -391,7 +391,7 @@ def main_supervised(ae):
     hist_summaries.extend([ae['weights{0}'.format(i + 1)]
                            for i in xrange(ae.num_hidden_layers + 1)])
 
-    hist_summaries = [tf.histogram_summary(v.op.name + "_fine_tuning", v)
+    hist_summaries = [tf.summary.histogram(v.op.name + "_fine_tuning", v)
                       for v in hist_summaries]
     summary_op = tf.merge_summary(hist_summaries)
 
