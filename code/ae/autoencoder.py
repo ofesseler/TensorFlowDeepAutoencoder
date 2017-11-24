@@ -312,7 +312,7 @@ def main_unsupervised():
         hist_summarries = [tf.summary.histogram(v.op.name, v)
                            for v in summary_vars]
         hist_summarries.append(loss_summaries[i])
-        summary_op = tf.merge_summary(hist_summarries)
+        summary_op = tf.summary.merge(hist_summarries)
 
         vars_to_init = ae.get_variables_to_init(n)
         vars_to_init.append(global_step)
@@ -393,7 +393,7 @@ def main_supervised(ae):
 
     hist_summaries = [tf.summary.histogram(v.op.name + "_fine_tuning", v)
                       for v in hist_summaries]
-    summary_op = tf.merge_summary(hist_summaries)
+    summary_op = tf.summary.merge(hist_summaries)
 
     summary_writer = tf.summary.FileWriter(pjoin(FLAGS.summary_dir,
                                                   'fine_tuning'),
