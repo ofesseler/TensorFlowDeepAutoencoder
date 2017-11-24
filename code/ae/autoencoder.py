@@ -332,12 +332,12 @@ def main_unsupervised():
             summary_str = sess.run(summary_op, feed_dict=feed_dict)
             summary_writer.add_summary(summary_str, step)
             image_summary_op = \
-                tf.image_summary("training_images",
+                tf.summary.image("training_images",
                                  tf.reshape(input_,
                                             (FLAGS.batch_size,
                                              FLAGS.image_size,
                                              FLAGS.image_size, 1)),
-                                 max_images=FLAGS.batch_size)
+                                 max_outputs=FLAGS.batch_size)
 
             summary_img_str = sess.run(image_summary_op,
                                        feed_dict=feed_dict)
@@ -359,7 +359,7 @@ def main_unsupervised():
         image_var = tf.Variable(filters)
         image_filter = tf.identity(image_var)
         sess.run(tf.initialize_variables([image_var]))
-        img_filter_summary_op = tf.image_summary("first_layer_filters",
+        img_filter_summary_op = tf.summary.image("first_layer_filters",
                                                  image_filter)
         summary_writer.add_summary(sess.run(img_filter_summary_op))
         summary_writer.flush()
@@ -426,7 +426,7 @@ def main_supervised(ae):
         summary_str = sess.run(summary_op, feed_dict=feed_dict)
         summary_writer.add_summary(summary_str, step)
         summary_img_str = sess.run(
-            tf.image_summary("training_images",
+            tf.summary.image("training_images",
                              tf.reshape(input_pl,
                                         (FLAGS.batch_size,
                                          FLAGS.image_size,
