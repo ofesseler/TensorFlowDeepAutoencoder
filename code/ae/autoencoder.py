@@ -228,9 +228,9 @@ def training(loss, learning_rate, loss_key=None):
   """
   if loss_key is not None:
     # Add a scalar summary for the snapshot loss.
-    loss_summaries[loss_key] = tf.scalar_summary(loss.op.name, loss)
+    loss_summaries[loss_key] = tf.summary.scalar(loss.op.name, loss)
   else:
-    tf.scalar_summary(loss.op.name, loss)
+    tf.summary.scalar(loss.op.name, loss)
     for var in tf.trainable_variables():
       tf.histogram_summary(var.op.name, var)
   # Create the gradient descent optimizer with the given learning rate.
